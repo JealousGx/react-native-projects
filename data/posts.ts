@@ -1,0 +1,124 @@
+import { Users } from "./users";
+
+export const Posts = [
+  {
+    imageurl:
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*",
+    user: Users[0].user,
+    likes: 1120,
+    caption: "Idk Help Me :)",
+    profile_pic: Users[0].image,
+    date: 5,
+    comments: [
+      {
+        user: "Dumb",
+        comment: "Shit Pic",
+      },
+      {
+        user: "Hathi",
+        comment: "You Are Dumb",
+      },
+    ],
+  },
+  {
+    imageurl:
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*",
+    user: Users[4].user,
+    likes: 4324,
+    caption:
+      "i am dumb you are also so hello bye haha btw you are also dumb hahah",
+    profile_pic: Users[4].image,
+    date: 69,
+    comments: [
+      {
+        user: "Nerd",
+        comment: "DumbNerd",
+      },
+    ],
+  },
+  {
+    imageurl:
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*",
+    user: Users[4].user,
+    likes: 4324,
+    caption:
+      "i am dumb you are also so hello bye haha btw you are also dumb hahah",
+    profile_pic: Users[4].image,
+    date: 69,
+    comments: [
+      {
+        user: "Nerd",
+        comment: "DumbNerd",
+      },
+    ],
+  },
+  {
+    imageurl:
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*",
+    user: Users[4].user,
+    likes: 4324,
+    caption:
+      "i am dumb you are also so hello bye haha btw you are also dumb hahah",
+    profile_pic: Users[4].image,
+    date: 69,
+    comments: [
+      {
+        user: "Nerd",
+        comment: "DumbNerd",
+      },
+    ],
+  },
+  {
+    imageurl:
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*",
+    user: Users[4].user,
+    likes: 4324,
+    caption:
+      "i am dumb you are also so hello bye haha btw you are also dumb hahah",
+    profile_pic: Users[4].image,
+    date: 69,
+    comments: [
+      {
+        user: "Nerd",
+        comment: "DumbNerd",
+      },
+    ],
+  },
+  {
+    imageurl:
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*",
+    user: Users[4].user,
+    likes: 4324,
+    caption:
+      "i am dumb you are also so hello bye haha btw you are also dumb hahah",
+    profile_pic: Users[4].image,
+    date: 69,
+    comments: [
+      {
+        user: "Nerd",
+        comment: "DumbNerd",
+      },
+    ],
+  },
+];
+
+export const PostFooterIcons = [
+  {
+    name: "Like",
+    url: "https://img.icons8.com/material-outlined/60/ffffff/filled-like.png",
+    likedImageUrl:
+      "https://img.icons8.com/material/60/ffffff/filled-like--v1.png",
+  },
+  {
+    name: "comment",
+    url: "https://img.icons8.com/material-outlined/60/ffffff/filled-topic.png",
+  },
+  {
+    name: "share",
+    url: "https://img.icons8.com/material-outlined/60/ffffff/filled-sent.png",
+  },
+  {
+    name: "bookmark",
+    url: "https://img.icons8.com/material-outlined/60/ffffff/bookmark-ribbon.png",
+  },
+];

@@ -8,7 +8,7 @@ import "./firebase";
 import Landing from "./components/auth/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import MainScreen from "./components/main";
+import MainScreen from "./layouts/main";
 import HomeScreen from "./screens/HomeScreen";
 
 const Stack = createStackNavigator();
@@ -62,5 +62,9 @@ export default function App() {
   //   );
   // }
 
-  return <HomeScreen />;
+  return (
+    <MainScreen>
+      <HomeScreen />
+    </MainScreen>
+  );
 }
