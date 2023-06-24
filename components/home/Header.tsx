@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const Header: React.FC = () => {
+const Header: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity>
@@ -12,7 +12,7 @@ const Header: React.FC = () => {
       </TouchableOpacity>
 
       <View style={styles.iconsContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.push("NewPost")}>
           <Image
             source={{
               uri: "https://img.icons8.com/fluency-systems-regular/60/ffffff/plus-2-math.png",

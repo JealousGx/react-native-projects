@@ -5,10 +5,10 @@ import Post from "../components/home/Post";
 import Stories from "../components/home/Stories";
 import { Posts } from "../data/posts";
 
-const HomeScreen: React.FC = () => {
+const HomeScreen: React.FC<any> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header navigation={navigation} />
       <Stories />
       <ScrollView
         showsVerticalScrollIndicator={true}

@@ -16,7 +16,7 @@ const Post: React.FC<{ post: IPost }> = ({ post }) => {
         authorPic={post.profile_pic}
         author={post.user}
       />
-      <PostImage imageSrc={post.imageurl} />
+      <PostImage imageSrc={post.imageUrl} />
       <PostFooter post={post} />
     </View>
   );

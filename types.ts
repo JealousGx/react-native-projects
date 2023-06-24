@@ -1,5 +1,5 @@
 export type IPost = {
-  imageurl: string;
+  imageUrl: string;
   user: string;
   likes: number;
   caption: string;
