@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button, TextInput, View } from "react-native";
 
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
+import { collectionRef } from "../../firebase";
 
 const Register = () => {
   const [email, setEmail] = useState<string>("");
@@ -11,11 +13,14 @@ const Register = () => {
   const onSignUp = async () => {
     const auth = getAuth();
     await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        console.log(user, userCredential);
-        // ...
+
+        // Need to set the rules to `allow read, write: if request.auth != null;` in firestore
+        await addDoc(collection(collectionRef, "users", user.uid), {
+          name,
+          email,
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
