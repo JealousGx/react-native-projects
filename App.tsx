@@ -2,15 +2,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import "./firebase";
 
-import Landing from "./components/auth/Landing";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
+import AuthScreen from "./layouts/auth";
 import MainScreen from "./layouts/main";
+
 import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/Login";
 import NewPost from "./screens/NewPost";
+import RegisterScreen from "./screens/Register";
 
 const Stack = createStackNavigator();
 
@@ -19,8 +20,8 @@ const screenOptions = {
 };
 
 export default function App() {
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [loggedIn, setLoggedIn] = useState<boolean>(true);
+  const [loaded, setLoaded] = useState<boolean>(true);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   // useEffect(() => {
   //   const auth = getAuth();
@@ -35,13 +36,13 @@ export default function App() {
   //   });
   // }, []);
 
-  // if (!loaded) {
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: "center" }}>
-  //       <Text>Loading...</Text>
-  //     </View>
-  //   );
-  // }
+  if (!loaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   // if (!loggedIn) {
   //   return (
@@ -66,6 +67,28 @@ export default function App() {
   //     </NavigationContainer>
   //   );
   // }
+
+  if (!loggedIn) {
+    return (
+      <AuthScreen>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="RegisterScreen"
+            screenOptions={screenOptions}
+          >
+            <Stack.Screen
+              name="LoginScreen"
+              component={LoginScreen}
+            />
+            <Stack.Screen
+              name="RegisterScreen"
+              component={RegisterScreen}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthScreen>
+    );
+  }
 
   if (loggedIn) {
     return (

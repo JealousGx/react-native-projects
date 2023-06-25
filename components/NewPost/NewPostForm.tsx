@@ -2,6 +2,7 @@ import { Formik } from "formik";
 import React from "react";
 import { Button, Image, StyleSheet, Text, TextInput, View } from "react-native";
 import { Divider } from "react-native-elements";
+import validUrl from "valid-url";
 import * as Yup from "yup";
 
 const postSchema = Yup.object().shape({
@@ -43,7 +44,11 @@ const NewPostForm: React.FC<any> = ({ navigation }) => {
             }}
           >
             <Image
-              source={{ uri: thumbnailUrl ? thumbnailUrl : PLACEHOLDER_IMAGE }}
+              source={{
+                uri: validUrl.isUri(thumbnailUrl)
+                  ? validUrl.isUri(thumbnailUrl)
+                  : PLACEHOLDER_IMAGE,
+              }}
               style={{ width: 100, height: 100 }}
             />
 
