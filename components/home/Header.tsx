@@ -1,10 +1,38 @@
+import { getAuth } from "firebase/auth";
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const Header: React.FC<any> = ({ navigation }) => {
+  const [loading, setLoading] = React.useState<boolean>(false);
+
+  const onSignOut = () => {
+    const auth = getAuth();
+
+    setLoading(true);
+
+    return auth.signOut().then(() => {
+      setLoading(false);
+    });
+  };
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onSignOut}>
         <Image
           style={styles.logo}
           source={require("../../assets/insta-logo.png")}

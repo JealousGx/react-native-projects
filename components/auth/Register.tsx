@@ -1,5 +1,6 @@
-import { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   Pressable,
   StyleSheet,
   Text,
@@ -16,6 +17,7 @@ import { collectionRef } from "../../firebase";
 
 import Validator from "email-validator";
 import { Formik } from "formik";
+import React from "react";
 import * as Yup from "yup";
 
 const RegisterSchema = Yup.object().shape({
@@ -31,15 +33,27 @@ const RegisterSchema = Yup.object().shape({
     .min(8, "Password must be at least 8 characters"),
 });
 
-const Register = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [name, setName] = useState<string>("");
+const getRandomProfilePicture = async () => {
+  const response = await fetch("https://randomuser.me/api/");
+  const data = await response.json();
+  return data.results[0].picture.large;
+};
 
+const Register = () => {
+  const [loading, setLoading] = React.useState<boolean>(false);
   const navigation = useNavigation();
 
-  const onSignUp = async () => {
+  const onSignUp = async ({
+    name,
+    email,
+    password,
+  }: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
     const auth = getAuth();
+    setLoading(true);
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
@@ -48,14 +62,33 @@ const Register = () => {
         await addDoc(collection(collectionRef, "users", user.uid), {
           name,
           email,
+          profilePicture: await getRandomProfilePicture(),
         });
+
+        console.log(user.uid);
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.warn(errorCode, errorMessage);
+        Alert.alert(
+          errorCode,
+
+          "An account with this email already exists\n\nIf you are the owner of this email, please login"
+        );
+
+        navigation.navigate("LoginScreen" as never);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

@@ -23,18 +23,18 @@ export default function App() {
   const [loaded, setLoaded] = useState<boolean>(true);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   const auth = getAuth();
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (!user) {
-  //       setLoaded(true);
-  //       setLoggedIn(false);
-  //     } else {
-  //       setLoaded(true);
-  //       setLoggedIn(true);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        setLoaded(true);
+        setLoggedIn(false);
+      } else {
+        setLoaded(true);
+        setLoggedIn(true);
+      }
+    });
+  }, []);
 
   if (!loaded) {
     return (
@@ -44,36 +44,12 @@ export default function App() {
     );
   }
 
-  // if (!loggedIn) {
-  //   return (
-  //     <NavigationContainer>
-  //       <Stack.Navigator initialRouteName="Landing">
-  //         <Stack.Screen
-  //           name="Landing"
-  //           component={Landing}
-  //           options={{ headerShown: false }}
-  //         />
-
-  //         <Stack.Screen
-  //           name="Register"
-  //           component={Register}
-  //         />
-
-  //         <Stack.Screen
-  //           name="Login"
-  //           component={Login}
-  //         />
-  //       </Stack.Navigator>
-  //     </NavigationContainer>
-  //   );
-  // }
-
   if (!loggedIn) {
     return (
       <AuthScreen>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="RegisterScreen"
+            initialRouteName="LoginScreen"
             screenOptions={screenOptions}
           >
             <Stack.Screen

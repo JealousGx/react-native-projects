@@ -21,6 +21,14 @@ const BottomTabs = () => {
           iconStyles={[
             styles.icon,
             icon.name === "Profile" && styles.profileIcon,
+            {
+              borderColor:
+                activeTab === "Profile" && icon.name === "Profile"
+                  ? "white"
+                  : null,
+              borderWidth:
+                activeTab === "Profile" && icon.name === "Profile" ? 1 : null,
+            },
           ]}
         />
       ))}

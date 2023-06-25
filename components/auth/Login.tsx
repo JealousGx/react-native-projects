@@ -1,5 +1,6 @@
-import { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   Pressable,
   StyleSheet,
   Text,
@@ -13,6 +14,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import Validator from "email-validator";
 import { Formik } from "formik";
+import React from "react";
 import * as Yup from "yup";
 
 const LoginSchema = Yup.object().shape({
@@ -28,26 +30,44 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(false);
   const navigation = useNavigation();
 
-  const onSignIn = async (values: any) => {
-    // const auth = getAuth();
-    // await signInWithEmailAndPassword(auth, email, password)
-    //   .then((userCredential) => {
-    //     // Signed in
-    //     const user = userCredential.user;
-    //     console.log(user.uid);
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     console.warn(errorCode, errorMessage);
-    //   });
-    console.log(values);
+  const onSignIn = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
+    const auth = getAuth();
+    setLoading(true);
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user.uid);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        Alert.alert(
+          errorCode,
+          "Invalid email or password!\n\nRegister now with this email"
+        );
+
+        navigation.navigate("RegisterScreen" as never);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
