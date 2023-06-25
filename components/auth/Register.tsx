@@ -12,7 +12,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { collectionRef } from "../../firebase";
 
 import Validator from "email-validator";
@@ -44,11 +44,11 @@ const Register = () => {
   const navigation = useNavigation();
 
   const onSignUp = async ({
-    name,
+    user,
     email,
     password,
   }: {
-    name: string;
+    user: string;
     email: string;
     password: string;
   }) => {
@@ -58,20 +58,21 @@ const Register = () => {
       .then(async (userCredential) => {
         const user = userCredential.user;
 
-        // Need to set the rules to `allow read, write: if request.auth != null;` in firestore
-        await addDoc(collection(collectionRef, "users", user.uid), {
-          name,
-          email,
-          profilePicture: await getRandomProfilePicture(),
-        });
+        const usersRef = doc(collectionRef, "users", "children", user.uid);
 
-        console.log(user.uid);
+        // Need to set the rules to `allow read, write: if request.auth != null;` in firestore
+        await setDoc(usersRef, {
+          user,
+          email,
+          profile_pic: await getRandomProfilePicture(),
+        })
+          .then(() => console.log(user.uid))
+          .catch((error) => console.log(error));
       })
       .catch((error) => {
         const errorCode = error.code;
         Alert.alert(
           errorCode,
-
           "An account with this email already exists\n\nIf you are the owner of this email, please login"
         );
 
@@ -93,7 +94,7 @@ const Register = () => {
   return (
     <View style={styles.container}>
       <Formik
-        initialValues={{ name: "", email: "", password: "" }}
+        initialValues={{ user: "", email: "", password: "" }}
         onSubmit={onSignUp}
         validationSchema={RegisterSchema}
         validateOnMount={true}
@@ -107,12 +108,12 @@ const Register = () => {
               textContentType="name"
               autoCapitalize="none"
               autoFocus={true}
-              value={values.name}
+              value={values.user}
               style={[
                 styles.input,
                 {
                   borderColor:
-                    values.name.length < 1 || values.name.length >= 3
+                    values.user.length < 1 || values.user.length >= 3
                       ? "#ccc"
                       : "red",
                 },

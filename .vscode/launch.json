@@ -1,0 +1,16 @@
+{
+  "command": "npm run start",
+  "name": "Run npm build-start",
+  "request": "launch",
+  "type": "node-terminal",
+  "configurations": [
+    {
+      "name": "Launch via NPM",
+      "request": "launch",
+      "runtimeArgs": ["run", "start"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node"
+    }
+  ]
+}
