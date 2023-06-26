@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "instagram-mob-app-clone",
-    "slug": "instagram-mob-app-clone",
+    "slug": "instagram-clone",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +15,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jealousgx.instagramclone"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.jealousgx.instagramclone"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ed362eb3-e9d8-41d3-bcf6-40a78266fe75"
+      }
+    },
+    "owner": "jealousgx"
   }
 }
