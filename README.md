@@ -1,6 +1,6 @@
 # Instagram Clone
 
-![Clone Preview](https://github.com/JealousGx/react-native-projects/tree/instagram-clone/assets/preview.png)
+![Clone Preview](https://raw.githubusercontent.com/JealousGx/react-native-projects/instagram-clone/assets/preview.png)
 
 This is a clone of the popular social media platform, where millions of people share their selfies, photos etc. This project is built with populat JavaScript framework `React Native` along with other following dependencies:
 
