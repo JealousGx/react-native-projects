@@ -1,7 +1,10 @@
 export type IPost = {
+  id?: string;
   imageUrl: string;
   user: string;
-  likes: number;
+  owner_email: string;
+  owner_uid: string;
+  likes_by_users: string[] | [];
   caption: string;
   profile_pic: string;
   date: number;

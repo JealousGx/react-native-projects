@@ -19,7 +19,7 @@ const Stories: React.FC = () => {
               style={styles.story}
             />
 
-            <Text style={{ color: "white" }}>
+            <Text style={{ color: "white", textAlign: "center" }}>
               {user.user.length > 11
                 ? user.user.slice(0, 11) + "..."
                 : user.user}
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 50,
     objectFit: "contain",
-    marginLeft: 6,
+    marginLeft: 22,
     borderWidth: 3,
     borderColor: "#FF3250",
   },

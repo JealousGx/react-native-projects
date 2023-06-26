@@ -1,13 +1,35 @@
+import { getAuth } from "firebase/auth";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Divider } from "react-native-elements";
 import { PostFooterIcons } from "../../data/posts";
+import { collectionRef } from "../../firebase";
 import { IComment, IPost } from "../../types";
 import Icon from "../Icon";
 
 const Post: React.FC<{ post: IPost }> = ({ post }) => {
+  const handleLike = async (clikedPost: IPost) => {
+    const currentLikeStatus = !clikedPost.likes_by_users.includes(
+      getAuth().currentUser?.email as never
+    );
+
+    const postRef = doc(
+      collectionRef,
+      `users/children/${clikedPost.owner_uid}/posts/${clikedPost.id}`
+    );
+
+    await updateDoc(postRef, {
+      likes_by_users: currentLikeStatus
+        ? arrayUnion(getAuth().currentUser?.email)
+        : arrayRemove(getAuth().currentUser?.email),
+    }).catch((error) => {
+      console.log("Error updating document:", error);
+    });
+  };
+
   return (
-    <View style={{ marginBottom: 30 }}>
+    <View style={{ marginBottom: 15 }}>
       <Divider
         width={1}
         orientation="vertical"
@@ -17,7 +39,10 @@ const Post: React.FC<{ post: IPost }> = ({ post }) => {
         author={post.user}
       />
       <PostImage imageSrc={post.imageUrl} />
-      <PostFooter post={post} />
+      <PostFooter
+        post={post}
+        handleLike={handleLike}
+      />
     </View>
   );
 };
@@ -49,15 +74,27 @@ const PostImage: React.FC<{ imageSrc: string }> = ({ imageSrc }) => (
   />
 );
 
-const PostFooter: React.FC<{ post: IPost }> = ({ post }) => (
+const PostFooter: React.FC<{
+  post: IPost;
+  handleLike: (post: IPost) => void;
+}> = ({ post, handleLike }) => (
   <View>
     <View style={styles.postFooterHeader}>
       {PostFooterIcons.slice(0, 3).map((icon, index) => (
         <Icon
           key={index}
-          iconUrl={icon.url}
+          iconUrl={
+            index === 0
+              ? post.likes_by_users?.includes(
+                  getAuth().currentUser?.email as never
+                )
+                ? (PostFooterIcons[0].likedImageUrl as string)
+                : icon.url
+              : icon.url
+          }
           iconName={icon.name}
           iconStyles={styles.icon}
+          onPress={index === 0 ? () => handleLike(post) : undefined}
         />
       ))}
 
@@ -79,7 +116,7 @@ const PostFooter: React.FC<{ post: IPost }> = ({ post }) => (
       }}
     >
       <Text style={{ fontWeight: "700" }}>
-        {post.likes.toLocaleString("en")}{" "}
+        {post.likes_by_users?.length.toLocaleString("en")}{" "}
       </Text>
       likes
     </Text>

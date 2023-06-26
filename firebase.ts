@@ -4,14 +4,16 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { collection, getFirestore } from "firebase/firestore";
 
+import { REACT_APP_FIREBASE_API_KEY, REACT_APP_FIREBASE_APP_ID } from "@env";
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDor-CiuC3cqvMZrIFEeqcshAKH_BFJN9I",
+  apiKey: REACT_APP_FIREBASE_API_KEY,
   authDomain: "react-native-projects-93ea9.firebaseapp.com",
   projectId: "react-native-projects-93ea9",
   storageBucket: "react-native-projects-93ea9.appspot.com",
   messagingSenderId: "58836401120",
-  appId: "1:58836401120:web:fb801d5b0184a83c9cc985",
+  appId: REACT_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase

@@ -75,7 +75,7 @@ const NewPostForm: React.FC<any> = ({ navigation }) => {
       profile_pic: loggedInUser?.profile_pic,
       date: serverTimestamp(),
       owner_uid: getAuth().currentUser?.uid,
-      likes: 0,
+      owner_email: getAuth().currentUser?.email,
       comments: [],
       likes_by_users: [],
     }).then(() => navigation.navigate("Home"));
